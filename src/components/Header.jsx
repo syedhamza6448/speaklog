@@ -14,8 +14,14 @@ export default function Header({ view, setView, noteCount }) {
         height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
 
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        {/* Logo — click to go home */}
+        <button
+          onClick={() => setView('hero')}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+          }}
+        >
           <div style={{
             width: 34, height: 34, borderRadius: 9,
             background: 'var(--accent-dim)',
@@ -27,14 +33,13 @@ export default function Header({ view, setView, noteCount }) {
           <span style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 800, fontSize: 19,
-            letterSpacing: '-0.03em',
-            color: 'var(--text-primary)',
+            letterSpacing: '-0.03em', color: 'var(--text-primary)',
           }}>
             Speak<span style={{ color: 'var(--accent)' }}>Log</span>
           </span>
-        </div>
+        </button>
 
-        {/* Nav tabs */}
+        {/* Nav */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           {[
             { id: 'record',    label: 'Record',  Icon: Mic },
@@ -57,7 +62,6 @@ export default function Header({ view, setView, noteCount }) {
             )
           })}
         </nav>
-
       </div>
     </header>
   )

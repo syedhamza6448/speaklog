@@ -232,3 +232,60 @@ body::after {
 .animate-fade-up {
   animation: fade-up 0.4s ease forwards;
 }
+
+/* Smooth placeholder color */
+::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+/* Audio player dark styling */
+audio::-webkit-media-controls-panel {
+  background: var(--bg-card);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(94, 234, 212, 0.2);
+  color: var(--text-primary);
+}
+
+/* Focus ring */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(94, 234, 212, 0.4);
+  outline-offset: 2px;
+}
+
+/* Smooth page transitions */
+* {
+  transition-property: background-color, border-color, color, opacity;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+/* Prevent transition on layout properties */
+div,
+section,
+main,
+header,
+footer {
+  transition-property: none;
+}
+
+/* Link reset */
+a {
+  color: inherit;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 32px !important;
+  }
+
+  .glass {
+    border-radius: 12px !important;
+  }
+}
