@@ -4,6 +4,8 @@
 
 ![SpeakLog Banner](./screenshots/banner.png)
 
+🔗 **Live Demo:** [speaklog.vercel.app](https://speaklog.vercel.app)
+
 ---
 
 ## What is SpeakLog?
@@ -11,7 +13,7 @@
 Most people record voice notes and never replay them. SpeakLog fixes that.
 
 You speak. AI listens. In seconds, your messy voice note becomes:
-- ✅ **Actionable tasks** — a clean to-do list
+- ✅ **Actionable tasks** — a clean to-do list you can check off
 - 📝 **A sharp summary** — the key points, nothing else
 - 📅 **Calendar events** — dates, times, and titles extracted automatically
 
@@ -22,11 +24,15 @@ No typing. No manual organizing. Just speak and go.
 ## Features
 
 - 🎙️ **One-tap recording** — start instantly, stop when done
-- 🌊 **Live waveform animation** — visual feedback while you record
-- 🤖 **AI-powered parsing** — OpenRouter LLM extracts structured data from natural speech
+- 🌊 **Live waveform animation** — real-time visual feedback while you speak
+- 🤖 **AI-powered parsing** — Groq Whisper transcribes, OpenRouter Gemini structures
 - 📋 **Three output types** — Tasks, Summary, Calendar Events
-- 🗂️ **Note history** — all your past voice notes saved locally
-- 🌙 **Dark command-center UI** — stunning glassmorphism design
+- ✏️ **Inline editing** — edit any task or event after AI generates it
+- ☑️ **Checkable tasks** — tick off tasks as you complete them
+- 📋 **One-click copy** — copy summary, tasks, or events to clipboard
+- 🗂️ **Note history** — all past voice notes saved and searchable
+- 📊 **Stats dashboard** — total notes, tasks, and events at a glance
+- 🌙 **Dark command-center UI** — glassmorphism design with dot grid background
 - ⚡ **Zero backend** — runs entirely in the browser, localStorage for persistence
 
 ---
@@ -39,9 +45,11 @@ No typing. No manual organizing. Just speak and go.
 | Styling | Tailwind CSS |
 | Animation | Framer Motion |
 | Voice Recording | MediaRecorder API |
-| AI Processing | OpenRouter API |
+| Transcription | Groq Whisper (whisper-large-v3-turbo) |
+| AI Processing | OpenRouter API (Gemini 2.0 Flash) |
 | Icons | Lucide React |
 | Storage | localStorage |
+| Deployment | Vercel |
 
 ---
 
@@ -49,6 +57,7 @@ No typing. No manual organizing. Just speak and go.
 
 ### Prerequisites
 - Node.js 18+
+- A [Groq](https://console.groq.com) API key (free, no credit card)
 - An [OpenRouter](https://openrouter.ai) API key (free tier works)
 
 ### Installation
@@ -65,9 +74,10 @@ npm install
 cp .env.example .env
 ```
 
-Add your OpenRouter API key to `.env`:
+Add your API keys to `.env`:
 ```env
-VITE_OPENROUTER_API_KEY=your_key_here
+VITE_OPENROUTER_API_KEY=your_openrouter_key_here
+VITE_GROQ_API_KEY=your_groq_key_here
 ```
 
 ```bash
@@ -82,17 +92,15 @@ Open [http://localhost:5173](http://localhost:5173) and start recording.
 ## How It Works
 
 ```
-Voice Input
+Record audio (MediaRecorder API)
     ↓
-MediaRecorder API captures audio
+Send audio blob → Groq Whisper → transcript text
     ↓
-Audio → text via OpenRouter (Whisper / LLM)
+Send transcript → OpenRouter Gemini 2.0 Flash
     ↓
-Transcript → structured JSON via LLM prompt
+Structured JSON { summary, tasks[], events[] }
     ↓
-Tasks + Summary + Calendar Events rendered in UI
-    ↓
-Saved to localStorage
+Rendered in UI + saved to localStorage
 ```
 
 ---
@@ -105,13 +113,16 @@ speaklog/
 ├── src/
 │   ├── components/
 │   │   ├── Header.jsx        # Sticky nav with logo
+│   │   ├── Hero.jsx          # Landing page with feature grid
 │   │   ├── Recorder.jsx      # Voice recording + waveform
-│   │   ├── ResultCard.jsx    # AI output display
-│   │   └── Dashboard.jsx     # Note history
+│   │   ├── Waveform.jsx      # Animated frequency bars
+│   │   ├── ResultCard.jsx    # AI output with edit + copy
+│   │   ├── Dashboard.jsx     # Note history + search + stats
+│   │   └── Footer.jsx        # Footer with links
 │   ├── hooks/
-│   │   └── useRecorder.js    # MediaRecorder logic
+│   │   └── useRecorder.js    # MediaRecorder + Web Audio logic
 │   ├── services/
-│   │   └── openrouter.js     # AI API calls
+│   │   └── openrouter.js     # Groq + OpenRouter API calls
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css             # Design system + CSS variables
@@ -126,25 +137,28 @@ speaklog/
 
 ```env
 VITE_OPENROUTER_API_KEY=your_openrouter_api_key
+VITE_GROQ_API_KEY=your_groq_api_key
 ```
-
-> ⚠️ Never commit your `.env` file. It's already in `.gitignore`.
 
 ---
 
-## Roadmap
+## Deployment
 
-- [ ] Export tasks to Notion / Todoist
-- [ ] Google Calendar integration
-- [ ] Multi-language voice support
-- [ ] PWA support (installable on mobile)
-- [ ] Next.js version with proper API route key protection
+This project is deployed on Vercel. To deploy your own:
+
+```bash
+npm install -g vercel
+npm run build
+vercel
+```
+
+Or connect your GitHub repo directly at [vercel.com](https://vercel.com) and add the environment variables in the project settings.
 
 ---
 
 ## Screenshots
 
-> *(Coming soon — add screenshots to `/screenshots` folder)*
+> *(Add screenshots to `/screenshots` folder)*
 
 ---
 
@@ -156,6 +170,7 @@ MIT © [Hamza](https://github.com/syedhamza6448)
 
 ## Acknowledgements
 
+- [Groq](https://groq.com) — blazing fast Whisper transcription
 - [OpenRouter](https://openrouter.ai) — AI model routing
 - [Framer Motion](https://www.framer.com/motion/) — animations
 - [Lucide](https://lucide.dev) — icons
