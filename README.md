@@ -2,9 +2,19 @@
 
 > Turn your voice into action. Record ideas — get tasks, summaries, and calendar events instantly.
 
-![SpeakLog Banner](./screenshots/banner.png)
-
 🔗 **Live Demo:** [speaklog.vercel.app](https://speaklog.vercel.app)
+
+---
+
+## Screenshots
+
+![Hero](./public/screenshots/speaklogHero.png)
+
+![Recorder](./public/screenshots/speaklogRecorder.png)
+
+![AI Result](./public/screenshots/speaklogResult.png)
+
+![Dashboard](./public/screenshots/speaklogDashboard.png)
 
 ---
 
@@ -110,6 +120,12 @@ Rendered in UI + saved to localStorage
 ```
 speaklog/
 ├── public/
+│   ├── favicon.ico
+│   └── screenshots/
+│       ├── speaklogHero.png
+│       ├── speaklogRecorder.png
+│       ├── speaklogResult.png
+│       └── speaklogDashboard.png
 ├── src/
 │   ├── components/
 │   │   ├── Header.jsx        # Sticky nav with logo
@@ -140,6 +156,8 @@ VITE_OPENROUTER_API_KEY=your_openrouter_api_key
 VITE_GROQ_API_KEY=your_groq_api_key
 ```
 
+> ⚠️ Never commit your `.env` file. It's already in `.gitignore`.
+
 ---
 
 ## Deployment
@@ -156,15 +174,9 @@ Or connect your GitHub repo directly at [vercel.com](https://vercel.com) and add
 
 ---
 
-## Screenshots
-
-> *(Add screenshots to `/screenshots` folder)*
-
----
-
 ## License
 
-MIT © [Hamza](https://github.com/syedhamza6448)
+MIT © [Hamza](https://syed-hamza.vercel.app)
 
 ---
 
